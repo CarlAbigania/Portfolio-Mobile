@@ -10,45 +10,51 @@ class HeaderWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 20.0),
       width: double.infinity,
       decoration: BoxDecoration(
         color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            offset: Offset(0, 2),
-            blurRadius: 5,
+        border: Border(
+          bottom: BorderSide(
+            color: Colors.grey.withOpacity(0.1),
+            width: 1,
           ),
-        ],
+        ),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             title,
-            style: TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-              color: Colors.blue[800],
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: Theme.of(context).colorScheme.primary,
+              letterSpacing: -0.5,
             ),
           ),
-          CircleAvatar(
-            backgroundColor: Colors.blue[50],
+          Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
+            ),
             child: IconButton(
               icon: Icon(
-                Icons.notifications_none,
-                color: Colors.blue[800],
+                Icons.notifications_none_rounded,
+                color: Theme.of(context).colorScheme.primary,
+                size: 20,
               ),
               onPressed: () {
-                // Add a small Easter egg hint here too!
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
-                    content: Text('Wala kang Jowa!'),
+                    content: Text(
+                      'Wala kang Jowa! 😜',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    backgroundColor: Theme.of(context).colorScheme.primary,
                     duration: Duration(seconds: 2),
                     behavior: SnackBarBehavior.floating,
+                    margin: EdgeInsets.all(20),
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(12),
                     ),
                   ),
                 );

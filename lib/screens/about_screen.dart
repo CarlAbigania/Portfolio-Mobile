@@ -11,85 +11,105 @@ class AboutScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderWidget(
-                  title: 'About Me'), // Changed from Header to HeaderWidget
+              HeaderWidget(title: 'About Me'),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
-                      child: CircleAvatar(
-                        radius: 80,
-                        backgroundColor: Colors.blue[100],
-                        child: Icon(
-                          Icons.person,
-                          size: 100,
-                          color: Colors.blue[800],
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 20),
-                    _buildInfoSection(
-                      context,
-                      title: 'Personal Information',
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Column(
                         children: [
-                          _buildInfoItem('Name', 'John Carlo E. Abigania'),
-                          _buildInfoItem('Age', '21 years'),
-                          _buildInfoItem('Location', 'Cabuyao, Laguna'),
-                          _buildInfoItem('Email', 'abiganiacarlo687@email.com'),
+                          Hero(
+                            tag: 'profile',
+                            child: Container(
+                              padding: const EdgeInsets.all(4),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(color: Theme.of(context).colorScheme.primary.withOpacity(0.1), width: 4),
+                              ),
+                              child: CircleAvatar(
+                                radius: 70,
+                                backgroundColor: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+                                backgroundImage: AssetImage('data/images/profile.jpg'),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 20),
+                          Text(
+                            'John Carlo E. Abigania',
+                            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                              fontSize: 26,
+                            ),
+                          ),
+                          Text(
+                            'Digital Architect & Developer',
+                            style: TextStyle(
+                              color: Colors.grey[600],
+                              fontSize: 16,
+                              letterSpacing: 0.5,
+                            ),
+                          ),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 40),
                     _buildInfoSection(
                       context,
-                      title: 'Educational Background',
+                      title: 'Personal Info',
                       content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          _buildInfoItem('University', 'University of Cabuyao'),
-                          _buildInfoItem('Degree',
-                              'Bachelor of Science in Information Technology'),
-                          _buildInfoItem('Graduation Year', '2026'),
+                          _buildInfoItem(Icons.person_outline_rounded, 'Name', 'John Carlo E. Abigania'),
+                          _buildDivider(),
+                          _buildInfoItem(Icons.cake_outlined, 'Age', '21 Years'),
+                          _buildDivider(),
+                          _buildInfoItem(Icons.location_on_outlined, 'Location', 'Laguna, Philippines'),
+                          _buildDivider(),
+                          _buildInfoItem(Icons.email_outlined, 'Email', 'abiganiacarlo687@email.com'),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 32),
+                    _buildInfoSection(
+                      context,
+                      title: 'Education',
+                      content: Column(
+                        children: [
+                          _buildInfoItem(Icons.school_outlined, 'University', 'University of Cabuyao'),
+                          _buildDivider(),
+                          _buildInfoItem(Icons.history_edu_outlined, 'Degree', 'BS in Information Technology'),
+                          _buildDivider(),
+                          _buildInfoItem(Icons.calendar_today_outlined, 'Graduation', 'Class of 2026'),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 32),
                     _buildInfoSection(
                       context,
                       title: 'Skills',
                       content: Wrap(
-                        spacing: 8,
-                        runSpacing: 8,
+                        spacing: 10,
+                        runSpacing: 10,
                         children: [
                           _buildSkillChip('Flutter'),
                           _buildSkillChip('Dart'),
-                          _buildSkillChip('UI/UX Design'),
+                          _buildSkillChip('UI/UX'),
                           _buildSkillChip('Git'),
                           _buildSkillChip('Java'),
-                          _buildSkillChip('SQL'),
-                          _buildSkillChip('HTML/CSS'),
+                          _buildSkillChip('Firebase'),
+                          _buildSkillChip('REST API'),
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 32),
                     _buildInfoSection(
                       context,
-                      title: 'Experience',
-                      content: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          _buildExperienceItem(
-                            title: 'Student',
-                            company: 'Pamantasan ng Cabuyao(PNC)',
-                            period: '2022 - Present',
-                            description:
-                                'a student of Bachelor of Science in Information Technology at PNC, currently in my 3rd year.',
-                          ),
-                        ],
+                      title: 'Current Role',
+                      content: _buildExperienceItem(
+                        title: 'IT Student & Developer',
+                        company: 'Pamantasan ng Cabuyao',
+                        period: '2022 - Present',
+                        description: 'Specializing in mobile app development and modern UI architectures.',
                       ),
                     ),
                   ],
@@ -107,24 +127,61 @@ class AboutScreen extends StatelessWidget {
     required String title,
     required Widget content,
   }) {
-    return Container(
-      width: double.infinity,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(left: 4, bottom: 12),
+          child: Text(
             title,
-            style: Theme.of(context).textTheme.displayMedium,
-          ),
-          SizedBox(height: 10),
-          Card(
-            elevation: 2,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
+            style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(15.0),
-              child: content,
+          ),
+        ),
+        Container(
+          width: double.infinity,
+          padding: const EdgeInsets.all(20),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: Colors.grey.withOpacity(0.1)),
+          ),
+          child: content,
+        ),
+      ],
+    );
+  }
+
+  Widget _buildInfoItem(IconData icon, String label, String value) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: Row(
+        children: [
+          Icon(icon, size: 20, color: Colors.grey[400]),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey[500],
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -132,45 +189,27 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoItem(String label, String value) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          SizedBox(
-            width: 120,
-            child: Text(
-              label,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                color: Colors.grey[700],
-              ),
-            ),
-          ),
-          SizedBox(width: 10),
-          Expanded(
-            child: Text(
-              value,
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-          ),
-        ],
-      ),
+  Widget _buildDivider() {
+    return Divider(
+      height: 24,
+      thickness: 1,
+      color: Colors.grey.withOpacity(0.05),
     );
   }
 
   Widget _buildSkillChip(String skill) {
-    return Chip(
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      backgroundColor: Colors.blue[50],
-      label: Text(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: Colors.grey.withOpacity(0.15)),
+      ),
+      child: Text(
         skill,
-        style: TextStyle(
-          color: Colors.blue[800],
-          fontWeight: FontWeight.w500,
+        style: const TextStyle(
+          fontSize: 13,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
@@ -187,33 +226,36 @@ class AboutScreen extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
           ),
         ),
-        SizedBox(height: 3),
+        const SizedBox(height: 4),
         Text(
           company,
           style: TextStyle(
-            fontSize: 16,
+            fontSize: 14,
+            color: Colors.grey[600],
             fontWeight: FontWeight.w500,
-            color: Colors.blue[800],
           ),
         ),
-        SizedBox(height: 3),
+        const SizedBox(height: 4),
         Text(
           period,
           style: TextStyle(
-            color: Colors.grey[600],
+            fontSize: 12,
+            color: Colors.grey[400],
             fontStyle: FontStyle.italic,
           ),
         ),
-        SizedBox(height: 5),
+        const SizedBox(height: 12),
         Text(
           description,
           style: TextStyle(
             fontSize: 14,
+            color: Colors.grey[600],
+            height: 1.5,
           ),
         ),
       ],

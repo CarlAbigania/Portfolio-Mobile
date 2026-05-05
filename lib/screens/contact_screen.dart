@@ -69,32 +69,38 @@ class _ContactScreenState extends State<ContactScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderWidget(title: 'Contact Me'),
+              HeaderWidget(title: 'Contact'),
               Padding(
-                padding: const EdgeInsets.all(20.0),
+                padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       'Get In Touch',
-                      style: Theme.of(context).textTheme.displayMedium,
-                    ),
-                    SizedBox(height: 10),
-                    Text(
-                      'Feel free to contact me for any inquiries or collaboration opportunities.',
-                      style: TextStyle(
-                        fontSize: 16,
-                        color: Colors.grey[700],
+                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 24,
+                        letterSpacing: -0.5,
                       ),
                     ),
-                    SizedBox(height: 30),
-                    _buildContactInfoSection(),
-                    SizedBox(height: 30),
+                    const SizedBox(height: 8),
                     Text(
-                      'Send Me a Message',
-                      style: Theme.of(context).textTheme.displayMedium,
+                      "Have a project in mind? Let's build something amazing together.",
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: Colors.grey[600],
+                        height: 1.5,
+                      ),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 32),
+                    _buildContactInfoSection(),
+                    const SizedBox(height: 40),
+                    Text(
+                      'Send a Message',
+                      style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        fontSize: 20,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
                     _buildContactForm(),
                   ],
                 ),
@@ -135,48 +141,49 @@ class _ContactScreenState extends State<ContactScreen> {
     required String title,
     required String content,
   }) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15),
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        border: Border.all(color: Colors.grey.withOpacity(0.1)),
       ),
-      child: Padding(
-        padding: const EdgeInsets.all(15.0),
-        child: Row(
-          children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              decoration: BoxDecoration(
-                color: Colors.blue[50],
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Icon(
-                icon,
-                color: Colors.blue[800],
-              ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary.withOpacity(0.05),
+              borderRadius: BorderRadius.circular(12),
             ),
-            SizedBox(width: 15),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
-                ),
-                SizedBox(height: 5),
-                Text(
-                  content,
-                  style: TextStyle(
-                    color: Colors.grey[700],
-                  ),
-                ),
-              ],
+            child: Icon(
+              icon,
+              color: Theme.of(context).colorScheme.primary,
+              size: 20,
             ),
-          ],
-        ),
+          ),
+          const SizedBox(width: 16),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14,
+                ),
+              ),
+              const SizedBox(height: 2),
+              Text(
+                content,
+                style: TextStyle(
+                  color: Colors.grey[600],
+                  fontSize: 13,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -245,31 +252,36 @@ class _ContactScreenState extends State<ContactScreen> {
           ),
           SizedBox(height: 25),
           Center(
-            child: ElevatedButton(
-              onPressed: _isSubmitting ? null : _submitForm,
-              style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: _isSubmitting ? null : _submitForm,
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 18),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  elevation: 0,
                 ),
-                backgroundColor: Colors.blue[800],
+                child: _isSubmitting
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                          color: Colors.white,
+                          strokeWidth: 2,
+                        ),
+                      )
+                    : const Text(
+                        'Send Message',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
               ),
-              child: _isSubmitting
-                  ? SizedBox(
-                      width: 20,
-                      height: 20,
-                      child: CircularProgressIndicator(
-                        color: Colors.white,
-                        strokeWidth: 2,
-                      ),
-                    )
-                  : Text(
-                      'Send Message',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
             ),
           ),
         ],
@@ -289,19 +301,23 @@ class _ContactScreenState extends State<ContactScreen> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
+        labelStyle: TextStyle(color: Colors.grey[500], fontSize: 14),
+        filled: true,
+        fillColor: Colors.grey.withOpacity(0.03),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
         ),
-        prefixIcon: Icon(prefixIcon),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: Colors.grey.withOpacity(0.1)),
+        ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.blue),
+          borderRadius: BorderRadius.circular(16),
+          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary),
         ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.red),
-        ),
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        prefixIcon: Icon(prefixIcon, color: Colors.grey[400], size: 20),
+        contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
       ),
       keyboardType: keyboardType,
       maxLines: maxLines,

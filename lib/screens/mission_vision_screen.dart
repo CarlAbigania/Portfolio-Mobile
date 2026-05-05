@@ -11,35 +11,35 @@ class MissionVisionScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              HeaderWidget(
-                  title:
-                      'Mission & Vision'), // Changed from Header to HeaderWidget
-              SizedBox(height: 20),
+              HeaderWidget(title: 'Mission & Vision'),
+              const SizedBox(height: 32),
               _buildSection(
                 context,
-                title: 'University of Cabuyao (PNC)',
+                title: 'University of Cabuyao',
+                subtitle: 'Pamantasan ng Cabuyao (PNC)',
                 content: '',
-                icon: Icons.school,
+                icon: Icons.school_rounded,
+                isPrimary: true,
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 32),
               _buildSection(
                 context,
                 title: 'Vision',
-                content:
-                    'An institution of higher learning in Region IV, developing globally-competitive and value-laden professionals and leaders instrumental to community development and nation building.',
-                icon: Icons.visibility,
+                subtitle: 'Our long-term aspirations',
+                content: 'An institution of higher learning in Region IV, developing globally-competitive and value-laden professionals and leaders instrumental to community development and nation building.',
+                icon: Icons.auto_graph_rounded,
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 32),
               _buildSection(
                 context,
                 title: 'Mission',
-                content:
-                    'An institution of higher learning committed to equip individuals with knowledge, skills and values that will enable them to achieve professional goals & provide leadership and service for national development.',
-                icon: Icons.assignment,
+                subtitle: 'Our purpose and commitment',
+                content: 'An institution of higher learning committed to equip individuals with knowledge, skills and values that will enable them to achieve professional goals & provide leadership and service for national development.',
+                icon: Icons.track_changes_rounded,
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 40),
               _buildCoreValuesSection(context),
-              SizedBox(height: 30),
+              const SizedBox(height: 40),
             ],
           ),
         ),
@@ -50,53 +50,84 @@ class MissionVisionScreen extends StatelessWidget {
   Widget _buildSection(
     BuildContext context, {
     required String title,
+    required String subtitle,
     required String content,
     required IconData icon,
+    bool isPrimary = false,
   }) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
               Container(
-                padding: EdgeInsets.all(10),
+                padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Colors.blue[50],
-                  borderRadius: BorderRadius.circular(10),
+                  color: isPrimary
+                      ? Theme.of(context).colorScheme.primary.withOpacity(0.1)
+                      : Colors.grey.withOpacity(0.05),
+                  borderRadius: BorderRadius.circular(14),
                 ),
                 child: Icon(
                   icon,
-                  size: 30,
-                  color: Colors.blue[800],
+                  size: 24,
+                  color: isPrimary
+                      ? Theme.of(context).colorScheme.primary
+                      : Colors.grey[700],
                 ),
               ),
-              SizedBox(width: 15),
-              Text(
-                title,
-                style: Theme.of(context).textTheme.displayMedium,
+              const SizedBox(width: 16),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  Text(
+                    subtitle,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey[500],
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
-          SizedBox(height: 15),
-          if (content.isNotEmpty)
-            Card(
-              elevation: 2,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Text(
-                  content,
-                  style: TextStyle(
-                    fontSize: 16,
-                    height: 1.5,
+          if (content.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: Colors.grey.withOpacity(0.1)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.02),
+                    blurRadius: 10,
+                    offset: const Offset(0, 4),
                   ),
+                ],
+              ),
+              child: Text(
+                content,
+                style: TextStyle(
+                  fontSize: 15,
+                  height: 1.6,
+                  color: Colors.grey[700],
                 ),
               ),
             ),
+          ],
         ],
       ),
     );
@@ -106,105 +137,85 @@ class MissionVisionScreen extends StatelessWidget {
     final List<Map<String, dynamic>> values = [
       {
         'title': 'Excellence',
-        'description':
-            'Striving for the highest standards in academic and professional pursuits.',
-        'icon': Icons.star,
-        'color': Colors.amber,
+        'description': 'Striving for the highest standards in all pursuits.',
+        'icon': Icons.star_rounded,
       },
       {
         'title': 'Integrity',
-        'description':
-            'Upholding honesty, transparency, and ethical behavior in all endeavors.',
-        'icon': Icons.verified_user,
-        'color': Colors.blue,
+        'description': 'Upholding honesty and ethical behavior always.',
+        'icon': Icons.verified_user_rounded,
       },
       {
         'title': 'Innovation',
-        'description':
-            'Encouraging creative thinking and pioneering solutions to challenges.',
-        'icon': Icons.lightbulb,
-        'color': Colors.orange,
+        'description': 'Encouraging creative thinking and pioneering solutions.',
+        'icon': Icons.lightbulb_rounded,
       },
       {
         'title': 'Service',
-        'description':
-            'Committed to serving the community and contributing to national development.',
-        'icon': Icons.volunteer_activism,
-        'color': Colors.green,
+        'description': 'Committed to serving the community and nation.',
+        'icon': Icons.volunteer_activism_rounded,
       },
     ];
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  color: Colors.blue[50],
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(
-                  Icons.format_list_bulleted,
-                  size: 30,
-                  color: Colors.blue[800],
-                ),
-              ),
-              SizedBox(width: 15),
-              Text(
-                'Core Values',
-                style: Theme.of(context).textTheme.displayMedium,
-              ),
-            ],
+          const Text(
+            'Core Values',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
           ),
-          SizedBox(height: 15),
-          ListView.builder(
+          const SizedBox(height: 20),
+          GridView.builder(
             shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 12,
+              mainAxisSpacing: 12,
+              childAspectRatio: 0.9,
+            ),
             itemCount: values.length,
             itemBuilder: (context, index) {
               final value = values[index];
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 15.0),
-                child: Card(
-                  elevation: 2,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.all(16),
-                    leading: Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                        color: value['color'].withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Icon(
-                        value['icon'],
-                        color: value['color'],
-                      ),
+              return Container(
+                padding: const EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: Colors.grey.withOpacity(0.1)),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      value['icon'],
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 28,
                     ),
-                    title: Text(
+                    const SizedBox(height: 12),
+                    Text(
                       value['title'],
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
-                        fontSize: 18,
+                        fontSize: 15,
                       ),
                     ),
-                    subtitle: Padding(
-                      padding: const EdgeInsets.only(top: 8.0),
-                      child: Text(
-                        value['description'],
-                        style: TextStyle(
-                          fontSize: 14,
-                          height: 1.5,
-                        ),
+                    const SizedBox(height: 4),
+                    Text(
+                      value['description'],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontSize: 11,
+                        color: Colors.grey[600],
+                        height: 1.3,
                       ),
                     ),
-                  ),
+                  ],
                 ),
               );
             },

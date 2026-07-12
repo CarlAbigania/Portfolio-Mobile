@@ -1,5 +1,7 @@
 Access the application here: https://carlabigania.github.io/Portfolio-Mobile/
 
+Adjust the size to mobile for better experience...
+
 ## 🚀 How to Run the System
 
 Follow these steps to get the project up and running on your local machine.
